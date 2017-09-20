@@ -1,20 +1,121 @@
-.brunch {
+body {
+  max-width: 645px;
+}
+
+#app {
   font-family: -apple-system, Sans-Serif;
   text-align: center;
-  font-size: 24pt;
-  color: #3f894a;
+  background-image: url("https://bold.newcastle.edu.au/home/img/DeathtoStock_Desk5.png");
+  width: 100%;
+  color: #eee;
 }
-
+div#content {
+  width: 100%;
+}
+div#heading {
+  background-color: rgba(55,55,55, 0.7);
+  margin: 1em;
+}
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  max-width: 640px;
+}
+th,td {
+  background-color: rgba(55,55,55, 0.7);
+  margin: 0;
+  padding: 0.25em;
+}
+table p, table em {
+    margin: 0;
+    padding: 0;
+    display:block;
+}
+table em {
+    padding-top: 1em;
+}
 a {
-  color: #3f894a;
+  color: #fff;
   text-decoration: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0);
-}
-
-a:hover {
-  color: #27552e;
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 h5 > a {
   text-decoration: underline;
+}
+
+ul.nav {
+    list-style: none;
+}
+ul.nav > li {
+    margin: 0.25em;
+    padding: 0.25em;
+    border: thin solid #ccc;
+    background-color: rgba(55,55,55, 0.7);
+}
+ul.nav > li:hover {
+    cursor: pointer;
+}
+
+table.analytics th > p {
+    font-size: 12pt;
+}
+table.analytics th > em {
+    font-size: 9pt;
+    text-decoration-style: wavy;
+}
+
+table.analytics tr:nth-child(1) th
+{
+    border-top: 2px solid #ddd;
+    border-left: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+}
+
+table.analytics tr:last-child td {
+    border-bottom: 2px solid #ddd;
+    border-left: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+}
+
+table.analytics tr:last-child td:nth-child(1) {
+   color: #64d8e5;
+   font-size: 38pt;
+}
+
+table.analytics tr:last-child td:nth-child(2) {
+   color: #dd7ccf;
+   font-size: 38pt;
+}
+
+table.analytics tr:last-child td:nth-child(3) {
+   color: #7fefb9;
+   font-size: 38pt;
+}
+
+table.analytics tr:last-child td:nth-child(4) {
+   color: #edb57d;
+   font-size: 38pt;
+}
+li:nth-child(1n):hover {
+  background-color: #64d8e5;
+}
+li:nth-child(2n):hover {
+  background-color: #dd7ccf;
+}
+li:nth-child(3n):hover {
+  background-color: #7fefb9;
+}
+li:nth-child(3n):hover {
+  background-color: #edb57d;
+}
+table.analytics span {
+  margin-top: 0;
+  font-size: 14pt;
+  display:block;
+}
+td.message {
+  font-size: 18pt !important;
 }
