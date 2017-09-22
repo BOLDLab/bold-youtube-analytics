@@ -10,5 +10,9 @@ exports.files = {
 };
 
 exports.plugins = {
-  babel: {presets: ['latest', 'react']}
+      babel: {presets: ['latest', 'react']},
+      closurecompiler: {
+          compilationLevel: 'SIMPLE',
+          createSourceMap: false
+        }
 };

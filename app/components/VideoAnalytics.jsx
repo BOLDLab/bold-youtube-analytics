@@ -2,6 +2,8 @@ import React from 'react';
 import keyIndex from 'react-key-index';
 import config from 'config';
 import dateFormat from 'dateformat';
+import Clipboard from 'clipboard';
+import $ from 'jquery';
 
 export default class VideoAnalytics extends React.Component {
     constructor(props) {
@@ -9,21 +11,18 @@ export default class VideoAnalytics extends React.Component {
 
         this.state = {rows: {}, headers: {}};
 
-
-
         this.state = { analytics_headers : config.analytics_headers };
     }
 
     componentWillMount() {
       const from = this.props.data.from.split('-');
-    //  console.log(from);
       const start = new Date(from[0], from[1], from[2]);
       const str_start = dateFormat(start, "dddd mmmm dS, yyyy");
-    //  console.log(str_start);
+
       this.state.start_date = str_start;
 
       let seed = 0;
-      var rows;
+      let rows;
       if(typeof this.props.data.rows !== 'undefined') {
           rows = keyIndex(this.props.data.rows, 1);
           this.state.rows = rows;
@@ -40,13 +39,69 @@ export default class VideoAnalytics extends React.Component {
 
       this.state.headers = headers;
 
-    }
+      let title = this.props.data.title;
+      if(this.props.data.title.length > 35) {
+          let a = title.split(" ");
+          let t = 0;
+          let b = [], set = false;
+          let l = 1;
+          a.forEach((o,i)=> {
+              t = t + String(o).length;
+              if(t > (35 * l)) {
+                  l = l + 1;
+              }
 
+              if(typeof b[l] === 'undefined') b[l] = new String();
+              b[l] += a[i]+" ";
+          });
+
+          this.props.data.title = b;
+      }
+
+    }
+    componentDidMount() {
+      const i = setInterval(function() {
+      const c = document.getElementById("container");
+          if(c) {
+              const h = c.outerHTML;
+              const e = document.getElementsByClassName("copy")[0];
+              const b = document.getElementById("ccButton");
+
+              b.setAttribute("data-clipboard-text", h)
+
+              const cb = new Clipboard('.btn');
+
+              cb.on("success", function(e) {
+                    const ccb = document.getElementById("ccButton");
+                    const n = document.createElement("p");
+                    n.setAttribute("class", "message");
+                    const t = document.createTextNode("Copied to clipboard");
+
+                    n.appendChild(t);
+
+                    $(".btn").get(0).before(n);
+                    $("p.message").fadeOut(1500);
+              });
+              cb.on("error", function(e) {
+                  console.error('Action:', e.action);
+                  console.error('Trigger:', e.trigger);
+              });
+
+              clearInterval(i);
+          }
+      }, 100);
+    }
     render() {
-        return <div id="content">
+
+        return <div id="container">
             <div id="heading">
-                <h3>{this.props.data.title}</h3>
-                <p>This data is from {this.state.start_date} through to today.</p>
+                <h3>{
+                      this.props.data.title.map((title)=>
+                          <span>{title}<br></br> </span>
+                      )
+                    }
+                </h3>
+                <p>This data is from {this.state.start_date}<br></br> through to today.</p>
             </div>
             {this.state.headers ?
             <table className="analytics">
@@ -75,7 +130,7 @@ export default class VideoAnalytics extends React.Component {
                   }
                 </tbody>
             </table>
-            : <h3>Loading...</h3>}
+            : <div id="loading"></div>}
         </div>
 
     }
