@@ -153,7 +153,6 @@ label {
     margin: 0;
 }
 .btn {
-    display: block;
     position: relative;
     background-image: url("copy-32.png");
     background-repeat: no-repeat;
@@ -164,9 +163,10 @@ label {
     cursor:copy;
     float: left;
     margin-left: -250px;
+    display: none;
 }
 .instructions {
-    display: block;
+    display: none;
     width: 16em;
     position: relative;
     float: left;

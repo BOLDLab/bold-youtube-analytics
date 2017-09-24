@@ -4,6 +4,7 @@ import config from 'config';
 import dateFormat from 'dateformat';
 import Clipboard from 'clipboard';
 import $ from 'jquery';
+import printf from 'printf';
 
 export default class VideoAnalytics extends React.Component {
     constructor(props) {
@@ -61,13 +62,17 @@ export default class VideoAnalytics extends React.Component {
     }
     componentDidMount() {
       const i = setInterval(function() {
-      const c = document.getElementById("container");
-          if(c) {
-              const h = c.outerHTML;
+              const h = window.location.href;
+
+              if(h) {
+              const f = "<iframe src='%s' style='width: 680; border: none;' seamless></iframe>";
+
+              const s = printf(f, h);
+
               const e = document.getElementsByClassName("copy")[0];
               const b = document.getElementById("ccButton");
 
-              b.setAttribute("data-clipboard-text", h)
+              b.setAttribute("data-clipboard-text", s)
 
               const cb = new Clipboard('.btn');
 
@@ -83,22 +88,28 @@ export default class VideoAnalytics extends React.Component {
                     $("p.message").fadeOut(1500);
               });
               cb.on("error", function(e) {
+                  console.error("ERROR!");
                   console.error('Action:', e.action);
                   console.error('Trigger:', e.trigger);
               });
 
               clearInterval(i);
-          }
-      }, 100);
+              $(".instructions, .btn").fadeIn(1000);
+              }
+
+            }, 100);
     }
     render() {
 
         return <div id="container">
             <div id="heading">
                 <h3>{
+
+                    (typeof this.props.data.title === 'array') ?
                       this.props.data.title.map((title)=>
                           <span>{title}<br></br> </span>
-                      )
+                      ) :
+                      this.props.data.title
                     }
                 </h3>
                 <p>This data is from {this.state.start_date}<br></br> through to today.</p>
