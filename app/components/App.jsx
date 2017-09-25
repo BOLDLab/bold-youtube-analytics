@@ -18,7 +18,7 @@ export default class App extends React.Component {
     const p = QueryString.parse(location.search);
 
     if(p.v && p.c && p.t && !this.state.video) {
-         this.state.video = {v: p.v, c: p.c, s: p.t};
+         this.state.video = {v: p.v, c: p.c, s: p.t, e: p.e};
     } else {
         this.state.video = null; // default to home page with bad request
     }
@@ -32,14 +32,13 @@ export default class App extends React.Component {
     } else {
         video_api.fetchVideoDetails(this.state.video.v, (data) => {
               this.state.video.name = data.items[0].snippet.localized.title;
-                video_api.fetchAnalytics(this.state.video.v, this.state.video.c, this.state.video.s, (data) => {   data.title = this.state.video.name; data.from = this.state.video.s; this.setState({video_data: data}) });
+                video_api.fetchAnalytics(this.state.video.v, this.state.video.c, this.state.video.s, this.state.video.e, (data) => {   data.title = this.state.video.name; data.from = this.state.video.s; data.to = this.state.video.e; this.setState({video_data: data}) });
     } );
     }
 }
-//this.state.data.items.map(item=><li key={item.contentDetails.videoId}>{item.snippet.title}</li>)
-  render() {
-    if(this.state.data.authUrl) {
 
+render() {
+    if(this.state.data.authUrl) {
         return ( <div id="authenticate">
                     <a target="_blank" href={this.state.data.authUrl}>Follow this link and copy the code below:</a>
                     <form action={config.rest_url + this.state.data.action}>
@@ -52,7 +51,7 @@ export default class App extends React.Component {
           return (
               <div id="content">
                 <h2>BOLD Youtube Video Analytics</h2>
-                <p>Enter video code and the start and end dates of your search below.</p>
+                <p>Enter the video share link, the start date and optionally, the end date.</p>
                 <VideoForm vdata={this.state.video_data} />
               </div>
           )

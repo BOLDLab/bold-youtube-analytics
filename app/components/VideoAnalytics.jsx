@@ -20,7 +20,12 @@ export default class VideoAnalytics extends React.Component {
       const start = new Date(from[0], from[1], from[2]);
       const str_start = dateFormat(start, "dddd mmmm dS, yyyy");
 
+      const to = this.props.data.to.split('-');
+      const end = new Date(to[0], to[1], to[2]);
+      const str_end = dateFormat(end, "dddd mmmm dS, yyyy");
+
       this.state.start_date = str_start;
+      this.state.end_date = str_end;
 
       let seed = 0;
       let rows;
@@ -112,7 +117,7 @@ export default class VideoAnalytics extends React.Component {
                       this.props.data.title
                     }
                 </h3>
-                <p>This data is from {this.state.start_date}<br></br> through to today.</p>
+                <p>This data is from {this.state.start_date}<br></br> through to {this.state.end_date}.</p>
             </div>
             {this.state.headers ?
             <table className="analytics">

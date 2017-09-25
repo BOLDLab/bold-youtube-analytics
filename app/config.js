@@ -19,7 +19,8 @@ const config = {
           "title" : "Estimated Minutes Watched",
           "description": "How long users watched this video"
       }
-  }
+  },
+  'channelID': "UCfxGXNvpDFgPWyy2fpJY7qg"
 };
 
 module.exports = config;

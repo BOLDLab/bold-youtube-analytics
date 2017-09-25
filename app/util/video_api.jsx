@@ -3,8 +3,8 @@ const config = require('config');
 const video_api =
 {
 
-    fetchAnalytics: function(v, c, s, callback) {
-        fetch(config.rest_url+"/video-analytics?v="+v+"&c="+c+"&t="+s)
+    fetchAnalytics: function(v, c, s, e, callback) {
+        fetch(config.rest_url+"/video-analytics?v="+v+"&c="+c+"&t="+s+"&e="+e)
           .then(result=>result.json())
             .then(data => {
                 callback(data);
