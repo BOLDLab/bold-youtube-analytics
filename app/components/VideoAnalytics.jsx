@@ -65,7 +65,7 @@ export default class VideoAnalytics extends React.Component {
               const h = window.location.href;
 
               if(h) {
-              const f = "<iframe src='%s' style='width: 680; border: none;' seamless></iframe>";
+              const f = "<iframe src='%s' width='720' height='400' style='border: none;' seamless></iframe>";
 
               const s = printf(f, h);
 
