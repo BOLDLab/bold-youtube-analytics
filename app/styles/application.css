@@ -140,6 +140,9 @@ table.analytics span {
   margin-right: 2em;
   margin-top: 0.4em;
 }
+.medium-text {
+  font-size: 14pt;
+}
 
 label {
     margin: 0.3em;

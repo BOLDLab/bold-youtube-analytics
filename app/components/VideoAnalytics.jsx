@@ -17,13 +17,14 @@ export default class VideoAnalytics extends React.Component {
 
     componentWillMount() {
       const from = this.props.data.from.split('-');
-      const start = new Date(from[0], from[1], from[2]);
+      const start = new Date(from[0], (from[1]-1), from[2]);
       const str_start = dateFormat(start, "dddd mmmm dS, yyyy");
 
       const to = this.props.data.to.split('-');
-      const end = new Date(to[0], to[1], to[2]);
+      const end = new Date(to[0], (to[1]-1), to[2]);
       const str_end = dateFormat(end, "dddd mmmm dS, yyyy");
 
+      console.log(to, from);
       this.state.start_date = str_start;
       this.state.end_date = str_end;
 
@@ -142,7 +143,7 @@ export default class VideoAnalytics extends React.Component {
                         <td key={row._3Id}>{row[3]} <span>minutes</span></td>
                     </tr>)
                     :
-                    <tr><td colSpan='4' className='message'>No data is available for this video</td></tr>
+                    <tr><td colSpan='4' className='message medium-text'>No data is available for this video</td></tr>
                   }
                 </tbody>
             </table>
